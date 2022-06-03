@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="munit-test-test-suite.xml" />
+	<munit:test name="munit-test-test-suite-munit-testFlowTest" doc:id="cad46186-6ffb-4187-b973-4bf5bf78a8ce" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to munit-testFlow" doc:id="aa2f6e34-aee0-43c8-af61-4a4083b07a06" name="munit-testFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="a1b440b8-4aae-425d-8fa0-98bc28d65e0a" actual="#[payload.message]" expected='#["Hello World!"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="munit-test-test-suite-munit-testFlow2Test" doc:id="8636afce-1ba6-44a3-9df5-468025cc0ddf" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to munit-testFlow2" doc:id="bc8a8ae2-96cf-4529-b751-a70a47be938f" name="munit-testFlow2"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="998a4fec-53a3-4a35-aef9-766e6c451f0c" actual="#[payload.message]" expected='#["Hello Universe!"]' />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

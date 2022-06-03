@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="ef29e9e0-786a-4a64-b175-82c47d412efb" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="munit-testFlow" doc:id="58fc42a4-eacb-4746-b672-7c1b8e9d6817" >
+		<http:listener doc:name="Listener" doc:id="86745ec6-a539-4b81-888d-54bc4951330e" config-ref="HTTP_Listener_config" path="/test"/>
+		<choice doc:name="Choice" doc:id="23befe41-6f9a-4409-8f59-ea1c838c109d" >
+			<when expression="#[true]">
+				<ee:transform doc:name="Transform Message" doc:id="ecb3f7e2-1e4f-4dd7-a999-4d2f978ebba2" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Hello World!"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+		</choice>
+	</flow>
+	<flow name="munit-testFlow2" doc:id="f9f09e0d-aca2-404a-9358-fa669910e9c5" >
+		<http:listener doc:name="Listener" doc:id="58f76e06-7e6d-40f9-8170-17d7b1296b13" config-ref="HTTP_Listener_config" path="/test/universe" />
+		<choice doc:name="Choice" doc:id="619a2e2a-3abf-4dbd-ab93-23424972232d" >
+			<when expression="#[true]" >
+				<ee:transform doc:name="Transform Message" doc:id="928dc7a9-78f2-4aa8-b5a1-d666bc28d8e9" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Hello Universe!"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+		</choice>
+	</flow>
+</mule>
